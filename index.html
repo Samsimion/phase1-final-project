@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>furniture</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
+    
+    <script src="db.json"></script>
+</head>
+<body>
+    <header>
+
+
+        <div class="logo">
+            <img src="img/logofurni.png" alt="EliteFurnitureHub Logo">
+            <h1>EliteFurnitureHub</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Reviews</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <div class="cart-icon">
+                <img src="img/cartIcon.png" alt="Cart">
+                <span class="cart-count">0</span>
+            </div>
+            <input type="text" placeholder="Search for furniture..." class="search-bar">
+            
+        </div>
+    </header>
+
+    <section id="section-one">
+        <div class="section-overlay"></div>
+        <div class="sec-one-content">
+            <h1>Luxury & Comfort, Redefined</h1>
+            <p>Discover exclusive, handcrafted furniture designed for elegance and comfort.</p>
+            <a href="#" class="btn">Shop Now</a>
+        </div>
+    </section>
+    
+
+    <!-- SLIDESHOW -->
+<section id="slideshow-container">
+    <img class="slide" src="img/hero1.jpg" alt="Featured Furniture">
+    <img class="slide" src="img/hero2.jpg" alt="Modern Interior">
+    <img class="slide" src="img/hero3.jpg" alt="Elegant Setup">
+    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="next" onclick="changeSlide(1)">&#10095;</button>
+</section>
+
+<!-- PRODUCT GRID -->
+<section id="furniture-container"></section>
+
+
+
+
+
+
+
+
+    <script src='index.js'></script>  
+</body>
+</html>
