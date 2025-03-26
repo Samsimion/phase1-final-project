@@ -1,7 +1,7 @@
 {
     "furniture": [
         
-        {"id":1, "category":"sofa", "name":"Luxery Leather Sofa", "image":"img/leathersofa.png", "price":50000, "description":"Premium leather sofa with a modern touch for ultimate comfort.", "stock":5},
+        {"id":1, "category":"sofa", "name":"Luxery Leather Sofa", "image":"img/leathersofa.jpg", "price":50000, "description":"Premium leather sofa with a modern touch for ultimate comfort.", "stock":5},
         {"id":2, "category":"sofa", "name":"Royal Velvet Sofa", "image": "img/valvetsofa.jpg", "price": 40000, "description":"A cozy velvet sofa with an elegant design." , "stock": 100},
         {"id":3, "category":"table", "name":"Glass Coffee Table", "image": "img/glasstable.jpeg", "price": 5000, "description":"Stylish glass coffee table with stainless steel legs." , "stock":75 },
         {"id":4, "category":"table", "name":"Wooden Dining Table", "image": "img/woodentable.jpg", "price": 30000, "description":"Large family dining table made from mahogany wood." , "stock":8 },
@@ -14,7 +14,7 @@
             "id":1,
             "category":"sofa",
             "name":"Luxery Leather Sofa",
-            "image":"img/leathersofa.png", 
+            "image":"img/leathersofa.jpg", 
             "price":50000,
             "description":"Premium leather sofa with a modern touch for ultimate comfort.",
             "stock":5

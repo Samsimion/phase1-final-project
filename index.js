@@ -1,58 +1,64 @@
 document.addEventListener("DOMContentLoaded", fetchFurniture);
 
+
+const modal = document.querySelector("#buy-modal");
+const closeModal = document.querySelector(".close-btn");
+const modalImage = document.querySelector("#modal-image");
+const modalTitle = document.querySelector("#modal-title");
+const modalPrice = document.querySelector("#modal-price");
+const confirmBtn = document.querySelector("#confirm-purchase");
+
 function fetchFurniture() {
     fetch("http://localhost:3000/furniture")
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => displayFurniture(data))
-        .catch(error => console.error("Error fetching furniture:", error));
+        .catch(error => console.error("Failed to fetch furniture:", error));
 }
 
 function displayFurniture(items) {
-    const container = document.querySelector("#furniture-container"); // Add this div in HTML
-    container.innerHTML = ""; // Clear existing items
+    const container = document.querySelector("#furniture-container");
+    container.innerHTML = ""; 
 
     items.forEach(item => {
         const productCard = document.createElement("div");
         productCard.classList.add("product-card");
 
         productCard.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
+            <img src="${item.image}" alt="${item.name}" />
             <h3>${item.name}</h3>
             <p>${item.description}</p>
-            <p class="price">Ksh ${item.price.toLocaleString()}</p>
+            <p class="price">Ksh ${Number(item.price).toLocaleString()}</p>
             <button class="buy-btn" data-id="${item.id}">Buy Now</button>
         `;
 
         container.appendChild(productCard);
     });
+
+    
+    const buyButtons = document.querySelectorAll(".buy-btn");
+    buyButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            const itemId = e.target.dataset.id;
+            const selectedItem = items.find(item => item.id == itemId);
+
+            
+            modal.style.display = "flex";
+            modalImage.src = selectedItem.image;
+            modalTitle.textContent = selectedItem.name;
+            modalPrice.textContent = `Price: Ksh ${Number(selectedItem.price).toLocaleString()}`;
+
+            
+            confirmBtn.onclick = () => {
+                const paymentMethod = document.querySelector("#payment-method").value;
+                alert(`Order placed successfully using ${paymentMethod}!`);
+                modal.style.display = "none"; 
+            };
+        });
+    });
 }
 
-// AUTO SLIDESHOW FUNCTIONALITY
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slide");
 
-function showSlides() {
-    slides.forEach((slide) => (slide.style.display = "none"));
-    slideIndex++;
-    if (slideIndex > slides.length) slideIndex = 1;
-    slides[slideIndex - 1].style.display = "block";
-    setTimeout(showSlides, 3000); // Change slide every 3 seconds
-}
-
-showSlides();
-
-// MANUAL SLIDE NAVIGATION
-function changeSlide(n) {
-    slideIndex += n;
-    if (slideIndex > slides.length) slideIndex = 1;
-    if (slideIndex < 1) slideIndex = slides.length;
-    slides.forEach((slide) => (slide.style.display = "none"));
-    slides[slideIndex - 1].style.display = "block";
-}
-
-
-
-
-
-
-
+closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+});

@@ -54,9 +54,28 @@
     <button class="next" onclick="changeSlide(1)">&#10095;</button>
 </section>
 
-<!-- PRODUCT GRID -->
+<!--products za jsin zitadesplay hapa-->
 <section id="furniture-container"></section>
 
+
+<!--story ya kubuy na payments method -->
+<div id="buy-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Complete Your Purchase</h2>
+        <img id="modal-image" src="" alt="Product Image"/>
+        <h3 id="modal-title"></h3>
+        <p id="modal-price"></p>
+
+        <h4>Select Payment Method:</h4>
+        <select id="payment-method">
+            <option value="mpesa">M-pesa</option>
+            <option value="equity">Equity</option>
+            <option value="card">Credit/Debit Card</option>
+        </select>
+        <button id="confirm-purchase">Confirm Purchase</button>
+    </div>
+</div>
 
 
 
