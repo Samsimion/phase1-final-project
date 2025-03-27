@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 body {
     margin: 0;
     padding: 0;
@@ -236,38 +239,42 @@ nav{
 .buy-btn:hover {
     background: #ffcc00;
 }
-/*
+/*mkuu css ya modals na kubuy*/
 
-*/
-
-.modal {
-    display: none; 
+#buy-modal {
+    display: none; /* Initially hidden */
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
-.modal-content {
-    background: #1a1a1a;
-    padding: 20px;
-    border-radius: 10px;
+#buy-modal img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+#buy-modal .modal-content {
     text-align: center;
-    max-width: 400px;
-    position: relative;
 }
 
 .close-btn {
     position: absolute;
-    top: 10px; right: 15px;
-    font-size: 24px;
+    top: 10px;
+    right: 15px;
     cursor: pointer;
-    color: #d4af37;
+    font-size: 18px;
 }
+
+
 
 .modal img {
     width: 100%;
@@ -276,6 +283,7 @@ nav{
     margin-bottom: 10px;
 }
 
+
 select, button {
     margin-top: 10px;
     padding: 10px;
@@ -283,47 +291,25 @@ select, button {
     border-radius: 5px;
 }
 
-/* MODAL STYLING */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
+/*usisahau style cart hapa */
+#cart-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 300px;
+    margin-top: 20px;
 }
 
-.modal-content {
-    background: #1a1a1a;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 400px;
-    position: relative;
+#cart-items li {
+    list-style: none;
+    padding: 5px;
 }
 
-.close-btn {
-    position: absolute;
-    top: 10px; right: 15px;
-    font-size: 24px;
+.remove-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
     cursor: pointer;
-    color: #d4af37;
-}
-
-.modal img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-select, button {
-    margin-top: 10px;
-    padding: 10px;
-    width: 100%;
-    border-radius: 5px;
 }
 
 

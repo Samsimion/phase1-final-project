@@ -1,85 +1,67 @@
 {
-    "furniture": [
-        
-        {"id":1, "category":"sofa", "name":"Luxery Leather Sofa", "image":"img/leathersofa.jpg", "price":50000, "description":"Premium leather sofa with a modern touch for ultimate comfort.", "stock":5},
-        {"id":2, "category":"sofa", "name":"Royal Velvet Sofa", "image": "img/valvetsofa.jpg", "price": 40000, "description":"A cozy velvet sofa with an elegant design." , "stock": 100},
-        {"id":3, "category":"table", "name":"Glass Coffee Table", "image": "img/glasstable.jpeg", "price": 5000, "description":"Stylish glass coffee table with stainless steel legs." , "stock":75 },
-        {"id":4, "category":"table", "name":"Wooden Dining Table", "image": "img/woodentable.jpg", "price": 30000, "description":"Large family dining table made from mahogany wood." , "stock":8 },
-        {"id":5, "category":"bed", "name":"King Size Wooden Bed", "image": "img/bed.jpg", "price": 35000, "description":"Solid wood bed with a luxurious headboard and ample support." , "stock": 20},
-        {"id":6, "category":"wardrobe", "name":"Modern Sliding Wardrobe", "image": "img/wardrobe.jpg", "price": 20000, "description":"Spacious sliding wardrobe with a sleek finish." , "stock":22 },
-        {"id":7, "category":"chair", "name":"Ergonomic Office Chair", "image":"img/office chair.jpg" , "price": 5000, "description":"Comfortable ergonomic chair designed for long working hours." , "stock":15 }
-    ],
-    "sofa": [
-        {
-            "id":1,
-            "category":"sofa",
-            "name":"Luxery Leather Sofa",
-            "image":"img/leathersofa.jpg", 
-            "price":50000,
-            "description":"Premium leather sofa with a modern touch for ultimate comfort.",
-            "stock":5
-        },
-        {
-            "id":2,
-            "category":"sofa",
-            "name":"Royal Velvet Sofa",
-            "image": "img/valvetsofa.jpg", 
-            "price": 40000,
-            "description":"A cozy velvet sofa with an elegant design.",
-            "stock": 100}
-    ],
-    "table":[
-        {
-            "id":3,
-            "category":"table", 
-            "name":"Glass Coffee Table", 
-            "image": "img/glasstable.jpeg", 
-            "price": 5000, 
-            "description":"Stylish glass coffee table with stainless steel legs." , 
-            "stock":75 },
-        {
-            "id":4, 
-            "category":"table", 
-            "name":"Wooden Dining Table", 
-            "image": "img/woodentable.jpg", 
-            "price": 30000, 
-            "description":"Large family dining table made from mahogany wood." , 
-            "stock":8
-        }
-    ],
-    "bed":[
-        {
-            "id":5, 
-            "category":"bed",
-            "name":"King Size Wooden Bed",
-            "image": "img/bed.jpg", 
-            "price": 35000,
-            "description":"Solid wood bed with a luxurious headboard and ample support." ,
-            "stock": 20
-        }
-    ],
-    "wardrobe":[
-        {
-            "id":6, 
-            "category":"wardrobe", 
-            "name":"Modern Sliding Wardrobe", 
-            "image": "Modern Sliding Wardrobe", 
-            "price": 20000, 
-            "description":"Spacious sliding wardrobe with a sleek finish." , 
-            "stock":22
-        }
-
-    ],
-    "chair":[
-        {
-            "id":7,
-            "category":"chair", 
-            "name":"Ergonomic Office Chair", 
-            "image":"img/office chair.jpg" , 
-            "price": 5000, 
-            "description":"Comfortable ergonomic chair designed for long working hours." , 
-            "stock":15 
-        }
-    ]
-
+  "furniture": [
+    {
+      "id": "1",
+      "category": "sofa",
+      "name": "Luxury Leather Sofa",
+      "image": "img/leathersofa.jpg",
+      "price": 50000,
+      "description": "Premium leather sofa with a modern touch for ultimate comfort.",
+      "stock": 0
+    },
+    {
+      "id": "2",
+      "category": "sofa",
+      "name": "Royal Velvet Sofa",
+      "image": "img/valvetsofa.jpg",
+      "price": 40000,
+      "description": "A cozy velvet sofa with an elegant design.",
+      "stock": 98
+    },
+    {
+      "id": "3",
+      "category": "table",
+      "name": "Glass Coffee Table",
+      "image": "img/glasstable.jpeg",
+      "price": 5000,
+      "description": "Stylish glass coffee table with stainless steel legs.",
+      "stock": 73
+    },
+    {
+      "id": "4",
+      "category": "table",
+      "name": "Wooden Dining Table",
+      "image": "img/woodentable.jpg",
+      "price": 30000,
+      "description": "Large family dining table made from mahogany wood.",
+      "stock": 5
+    },
+    {
+      "id": "5",
+      "category": "bed",
+      "name": "King Size Wooden Bed",
+      "image": "img/bed.jpg",
+      "price": 35000,
+      "description": "Solid wood bed with a luxurious headboard and ample support.",
+      "stock": 13
+    },
+    {
+      "id": "6",
+      "category": "wardrobe",
+      "name": "Modern Sliding Wardrobe",
+      "image": "img/wardrobe.jpg",
+      "price": 20000,
+      "description": "Spacious sliding wardrobe with a sleek finish.",
+      "stock": 19
+    },
+    {
+      "id": "7",
+      "category": "chair",
+      "name": "Ergonomic Office Chair",
+      "image": "img/office chair.jpg",
+      "price": 5000,
+      "description": "Comfortable ergonomic chair designed for long working hours.",
+      "stock": 13
+    }
+  ]
 }
