@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
     setupSellerForm();
     setupCheckout();
     setupCloseModal();
+
+    
 });
 
 let cart = [];
@@ -238,6 +240,7 @@ function setupReviewSubmit() {
         });
     });
 }
+
 
 function fetchFurniture() {
     fetch("http://localhost:3000/furniture")
