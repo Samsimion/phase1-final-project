@@ -16,7 +16,7 @@
       "image": "img/valvetsofa.jpg",
       "price": 40000,
       "description": "A cozy velvet sofa with an elegant design.",
-      "stock": 98
+      "stock": 97
     },
     {
       "id": "3",
@@ -25,7 +25,7 @@
       "image": "img/glasstable.jpeg",
       "price": 5000,
       "description": "Stylish glass coffee table with stainless steel legs.",
-      "stock": 73
+      "stock": 71
     },
     {
       "id": "4",
@@ -61,7 +61,80 @@
       "image": "img/office chair.jpg",
       "price": 5000,
       "description": "Comfortable ergonomic chair designed for long working hours.",
-      "stock": 13
+      "stock": 12
+    },
+    {
+      "id": "7b14",
+      "name": "chair",
+      "description": "traditionally curved chairs",
+      "price": 15000,
+      "image": "https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=400https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "stock": 10
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "productId": "1",
+      "rating": 5,
+      "comment": "Absolutely love this sofa! High-quality leather and very comfortable.",
+      "verified": true
+    },
+    {
+      "id": "2",
+      "productId": "2",
+      "rating": 4,
+      "comment": "The velvet feels premium. Would have given 5 stars if delivery was faster.",
+      "verified": true
+    },
+    {
+      "id": "3",
+      "productId": "3",
+      "rating": 5,
+      "comment": "The glass table is elegant and sturdy. Highly recommend!",
+      "verified": true
+    },
+    {
+      "id": "8be0",
+      "productId": "7",
+      "rating": 1,
+      "comment": "not goood",
+      "verified": true
+    },
+    {
+      "id": "272b",
+      "productId": "3",
+      "rating": 4,
+      "comment": "good job",
+      "verified": true
+    },
+    {
+      "id": "cf4f",
+      "productId": "7",
+      "rating": 4,
+      "comment": "yoooh good product",
+      "verified": true
+    },
+    {
+      "id": "368d",
+      "productId": "4",
+      "rating": 4,
+      "comment": "good ",
+      "verified": true
+    },
+    {
+      "id": "9da3",
+      "productId": "6",
+      "rating": 4,
+      "comment": "goow work",
+      "verified": true
+    },
+    {
+      "id": "f8b1",
+      "productId": "3",
+      "rating": 3,
+      "comment": "the wood was not good",
+      "verified": true
     }
   ]
 }
