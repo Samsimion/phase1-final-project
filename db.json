@@ -16,7 +16,7 @@
       "image": "img/valvetsofa.jpg",
       "price": 40000,
       "description": "A cozy velvet sofa with an elegant design.",
-      "stock": 97
+      "stock": 96
     },
     {
       "id": "3",
@@ -70,6 +70,14 @@
       "price": 15000,
       "image": "https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=400https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=400",
       "stock": 10
+    },
+    {
+      "id": "e72e",
+      "name": "bed",
+      "description": "high quality bed",
+      "price": 15000,
+      "image": "https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "stock": 0
     }
   ],
   "reviews": [

@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchFurniture();
-    setupDarkMode();
-    setupLiveSearch();
+    setupSellerForm();
+    setupCheckout();
+    setupCloseModal();
 });
 
 let cart = [];
@@ -13,69 +14,38 @@ const modalTitle = document.querySelector("#modal-title");
 const modalPrice = document.querySelector("#modal-price");
 const confirmBtn = document.querySelector("#confirm-purchase");
 
-// Live Search
-function setupLiveSearch() {
-    const searchInput = document.querySelector("#search-bar");
-    searchInput.addEventListener("input", (e) => {
-        const query = e.target.value.toLowerCase();
-        const products = document.querySelectorAll(".product-card");
 
-        products.forEach(product => {
-            const name = product.querySelector("h3").textContent.toLowerCase();
-            product.style.display = name.includes(query) ? "block" : "none";
-        });
-    });
-}
 
-// Dark Mode
-function setupDarkMode() {
-    const darkModeToggle = document.querySelector("#dark-mode-toggle");
-    darkModeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
-    });
-    if (localStorage.getItem("darkMode") === "true") {
-        document.body.classList.add("dark-mode");
-    }
-}
-
-//  Sort Reviews
 function sortReviews(reviews, sortBy) {
-    if (sortBy === "newest") {
-        return reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
-    } else if (sortBy === "highest") {
-        return reviews.sort((a, b) => b.rating - a.rating);
-    } else if (sortBy === "lowest") {
-        return reviews.sort((a, b) => a.rating - b.rating);
+    switch (sortBy) {
+        case "newest":
+            return reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+        case "highest":
+            return reviews.sort((a, b) => b.rating - a.rating);
+        case "lowest":
+            return reviews.sort((a, b) => a.rating - b.rating);
+        default:
+            return reviews;
     }
-    return reviews;
 }
 
-// Update Review UI
 function updateReviewUI(reviews, container) {
-    container.innerHTML = "";
-    if (reviews.length === 0) {
-        container.innerHTML = "<p>No reviews yet.</p>";
-        return;
-    }
-    reviews.forEach(review => {
-        const reviewItem = document.createElement("div");
-        reviewItem.classList.add("review-item");
-        reviewItem.innerHTML = `
-            <p><strong>Rating:</strong> ${"⭐".repeat(review.rating)}</p>
-            <p>${review.comment}</p>
-            <hr>
-        `;
-        container.appendChild(reviewItem);
-    });
+    container.innerHTML = reviews.length === 0 
+        ? "<p>No reviews yet.</p>" 
+        : reviews.map(review => `
+            <div class="review-item">
+                <p><strong>Rating:</strong> ${"⭐".repeat(review.rating)}</p>
+                <p>${review.comment}</p>
+                <hr>
+            </div>
+        `).join("");
 }
 
-// Fetch Reviews & Sorting
-function fetchReviews(productId, reviewContainer) {
+function fetchReviews(productId, container) {
     fetch(`http://localhost:3000/reviews?productId=${productId}`)
         .then(res => res.json())
         .then(reviews => {
-            reviewContainer.innerHTML = `
+            container.innerHTML = `
                 <select class="sort-reviews" data-id="${productId}">
                     <option value="newest">Newest First</option>
                     <option value="highest">Highest Rated</option>
@@ -83,23 +53,21 @@ function fetchReviews(productId, reviewContainer) {
                 </select>
                 <div class="reviews-list"></div>
             `;
-            const reviewList = reviewContainer.querySelector(".reviews-list");
+            const reviewList = container.querySelector(".reviews-list");
             updateReviewUI(reviews, reviewList);
-
-            reviewContainer.querySelector(".sort-reviews").addEventListener("change", (e) => {
+            container.querySelector(".sort-reviews").addEventListener("change", (e) => {
                 const sorted = sortReviews(reviews, e.target.value);
                 updateReviewUI(sorted, reviewList);
             });
         })
-        .catch(error => console.error("Error fetching reviews:", error));
+        .catch(err => console.error("Error fetching reviews:", err));
 }
 
-// 🛒 Add to Cart
 function addToCart(item) {
-    const existingItem = cart.find(cartItem => cartItem.id === item.id);
-    if (existingItem) {
-        if (existingItem.quantity < item.stock) {
-            existingItem.quantity += 1;
+    const existing = cart.find(i => i.id === item.id);
+    if (existing) {
+        if (existing.quantity < item.stock) {
+            existing.quantity += 1;
         } else {
             alert("Sorry, not enough stock available.");
             return;
@@ -120,72 +88,65 @@ function updateCartUI() {
     const cartTotal = document.querySelector("#cart-total");
     cartContainer.innerHTML = "";
     let total = 0;
-
     cart.forEach(item => {
         total += item.price * item.quantity;
-        const cartItem = document.createElement("li");
-        cartItem.innerHTML = `
+        const li = document.createElement("li");
+        li.innerHTML = `
             ${item.name} - Ksh ${Number(item.price).toLocaleString()} (x${item.quantity})
             <button class="remove-btn" data-id="${item.id}">Remove</button>
         `;
-        cartContainer.appendChild(cartItem);
+        cartContainer.appendChild(li);
     });
     cartTotal.textContent = `Total: Ksh ${Number(total).toLocaleString()}`;
-
-    document.querySelectorAll(".remove-btn").forEach(button => {
-        button.addEventListener("click", (e) => {
-            removeFromCart(e.target.dataset.id);
-        });
+    document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", () => removeFromCart(btn.dataset.id));
     });
 }
 
-function removeFromCart(itemId) {
-    itemId = itemId.toString();
-    const itemIndex = cart.findIndex(item => item.id === itemId);
-    if (itemIndex !== -1) {
-        if (cart[itemIndex].quantity > 1) {
-            cart[itemIndex].quantity -= 1;
+function removeFromCart(id) {
+    const index = cart.findIndex(item => item.id == id);
+    if (index !== -1) {
+        if (cart[index].quantity > 1) {
+            cart[index].quantity -= 1;
         } else {
-            cart.splice(itemIndex, 1);
+            cart.splice(index, 1);
         }
+        updateCartUI();
     }
-    updateCartUI();
 }
 
-document.querySelector("#checkout-btn").addEventListener("click", (e) => {
-    e.preventDefault();
-    if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-    }
-    alert("Order placed successfully!");
-    cart.forEach(item => {
-        updateStockInDB(item.id, item.stock - item.quantity);
+function setupCheckout() {
+    document.querySelector("#checkout-btn").addEventListener("click", (e) => {
+        e.preventDefault();
+        if (cart.length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+        alert("Order placed successfully!");
+        cart.forEach(item => {
+            updateStockInDB(item.id, item.stock - item.quantity);
+        });
+        cart = [];
+        updateCartUI();
     });
-    cart = [];
-    updateCartUI();
-    fetchFurniture();
-});
+}
 
-function updateStockInDB(itemId, newStock) {
-    fetch(`http://localhost:3000/furniture/${itemId}`, {
+function updateStockInDB(id, stock) {
+    fetch(`http://localhost:3000/furniture/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ stock: newStock })
-    })
-        .then(() => fetchFurniture())
-        .catch(error => console.error("Error updating stock:", error));
+        body: JSON.stringify({ stock })
+    }).then(() => fetchFurniture())
+      .catch(err => console.error("Stock update error:", err));
 }
 
 function displayFurniture(items) {
     const container = document.querySelector("#furniture-container");
     container.innerHTML = "";
-
     items.forEach(item => {
-        const productCard = document.createElement("div");
-        productCard.classList.add("product-card");
-
-        productCard.innerHTML = `
+        const card = document.createElement("div");
+        card.classList.add("product-card");
+        card.innerHTML = `
             <img src="${item.image}" alt="${item.name}" />
             <h3>${item.name}</h3>
             <p>${item.description}</p>
@@ -196,12 +157,10 @@ function displayFurniture(items) {
             </button>
         `;
 
-        // Reviews
         const reviewContainer = document.createElement("div");
         reviewContainer.classList.add("review-container");
         fetchReviews(item.id, reviewContainer);
 
-        // Add Review
         const reviewForm = document.createElement("div");
         reviewForm.classList.add("review-form");
         reviewForm.innerHTML = `
@@ -217,64 +176,65 @@ function displayFurniture(items) {
             <button class="submit-review" data-id="${item.id}">Submit Review</button>
         `;
 
-        productCard.appendChild(reviewContainer);
-        productCard.appendChild(reviewForm);
-        container.appendChild(productCard);
+        card.append(reviewContainer, reviewForm);
+        container.appendChild(card);
     });
 
-    // Buy Now Logic
-    document.querySelectorAll(".buy-btn").forEach(button => {
-        button.addEventListener("click", (e) => {
-            e.preventDefault();
-            const itemId = e.target.dataset.id;
-            const selectedItem = items.find(item => item.id == itemId);
-            if (selectedItem.stock === 0) {
-                alert("Samahani mteja, bidhaa hii imeisha kwa sasa.");
-            } else {
-                addToCart(selectedItem);
-                alert(`${selectedItem.name} added to cart!`);
-                modalImage.src = selectedItem.image;
-                modalTitle.textContent = selectedItem.name;
-                modalPrice.textContent = `Price: Ksh ${Number(selectedItem.price).toLocaleString()}`;
-                modal.style.display = "block";
+    setupBuyNow(items);
+    setupReviewSubmit();
+}
 
-                confirmBtn.onclick = () => {
-                    const paymentMethod = document.querySelector("#payment-method").value;
-                    alert(`Order placed successfully using ${paymentMethod}!`);
-                    modal.style.display = "none";
-                };
+function setupBuyNow(items) {
+    document.querySelectorAll(".buy-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const item = items.find(i => i.id == btn.dataset.id);
+            if (item.stock === 0) {
+                alert("Samahani mteja, bidhaa hii imeisha kwa sasa.");
+                return;
             }
+            addToCart(item);
+            alert(`${item.name} added to cart!`);
+            modalImage.src = item.image;
+            modalTitle.textContent = item.name;
+            modalPrice.textContent = `Price: Ksh ${Number(item.price).toLocaleString()}`;
+            modal.style.display = "block";
+
+            confirmBtn.onclick = () => {
+                const paymentMethod = document.querySelector("#payment-method").value;
+                alert(`Order placed successfully using ${paymentMethod}!`);
+                modal.style.display = "none";
+            };
         });
     });
+}
 
-    // Submit Review
-    document.querySelectorAll(".submit-review").forEach(button => {
-        button.addEventListener("click", (e) => {
+function setupReviewSubmit() {
+    document.querySelectorAll(".submit-review").forEach(btn => {
+        btn.addEventListener("click", (e) => {
             e.preventDefault();
-            const productId = e.target.dataset.id;
-            const rating = document.querySelector(`#rating-${productId}`).value;
-            const comment = document.querySelector(`#comment-${productId}`).value;
-            if (!comment.trim()) {
+            const id = btn.dataset.id;
+            const rating = document.querySelector(`#rating-${id}`).value;
+            const comment = document.querySelector(`#comment-${id}`).value.trim();
+            if (!comment) {
                 alert("Please enter a comment.");
                 return;
             }
-            const reviewData = {
-                productId: productId,
+            const review = {
+                productId: id,
                 rating: parseInt(rating),
-                comment: comment,
+                comment,
                 date: new Date().toISOString(),
                 verified: true
             };
             fetch("http://localhost:3000/reviews", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(reviewData)
-            })
-                .then(() => {
-                    alert("Review submitted successfully!");
-                    fetchFurniture();
-                })
-                .catch(error => console.error("Error submitting review:", error));
+                body: JSON.stringify(review)
+            }).then(() => {
+                alert("Review submitted successfully!");
+                fetchFurniture();
+            }).catch(err => console.error("Review submit error:", err));
         });
     });
 }
@@ -283,52 +243,50 @@ function fetchFurniture() {
     fetch("http://localhost:3000/furniture")
         .then(res => res.json())
         .then(data => displayFurniture(data))
-        .catch(error => console.error("Failed to fetch furniture:", error));
+        .catch(err => console.error("Fetch furniture error:", err));
 }
 
-// Close Modal
-closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
-});
+function setupCloseModal() {
+    closeModal.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+}
 
+function setupSellerForm() {
+    const form = document.querySelector("#add-furniture-form");
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.querySelector("#furniture-name").value.trim();
+        const description = document.querySelector("#furniture-description").value.trim();
+        const price = document.querySelector("#furniture-price").value.trim();
+        const image = document.querySelector("#furniture-image").value.trim();
+        const stock = document.querySelector("#furniture-stock").value.trim();
 
+        if (!name || !description || !price || !image || !stock) {
+            alert("Please fill in all fields.");
+            return;
+        }
 
-// code ya muuzaji/seller
-document.querySelector("#add-furniture-form").addEventListener("submit", (e) => {
-    e.preventDefault();
+        const newItem = {
+            name,
+            description,
+            price: parseFloat(price),
+            image,
+            stock: parseInt(stock)
+        };
 
-    const name = document.querySelector("#furniture-name").value.trim();
-    const description = document.querySelector("#furniture-description").value.trim();
-    const price = document.querySelector("#furniture-price").value.trim();
-    const image = document.querySelector("#furniture-image").value.trim();
-    const stock = document.querySelector("#furniture-stock").value.trim();
-
-    if (!name || !description || !price || !image || !stock) {
-        alert("Please fill in all fields.");
-        return;
-    }
-
-    const newFurniture = {
-        name,
-        description,
-        price: parseFloat(price),
-        image,
-        stock: parseInt(stock)
-    };
-
-    fetch("http://localhost:3000/furniture", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newFurniture)
-    })
-        .then(res => res.json())
-        .then(data => {
-            alert(`Furniture "${data.name}" added successfully!`);
-            document.querySelector("#add-furniture-form").reset();
-            fetchFurniture();
-        })
-        .catch(error => {
-            console.error("Error adding furniture:", error);
-            alert("Something went wrong. Please try again.");
-        });
-});
+        fetch("http://localhost:3000/furniture", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newItem)
+        }).then(res => res.json())
+          .then(data => {
+              alert(`Furniture "${data.name}" added successfully!`);
+              form.reset();
+              fetchFurniture();
+          }).catch(err => {
+              console.error("Error adding furniture:", err);
+              alert("Something went wrong. Please try again.");
+          });
+    });
+}

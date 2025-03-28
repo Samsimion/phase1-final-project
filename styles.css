@@ -68,41 +68,12 @@ nav{
 .nav-links a:hover{
     color: #d4af37;
 }
-.search-bar{
-    padding: 8px 12px;
-    border: 2px solid #d4af37;
-    border-radius: 20px;
-    outline: none;
-    background: transparent;
-    color: white;
-    width: 200px;
-}
-.search-bar::placeholder {
-    color: #d4af37;
-}
+
 .header-right{
     display: flex;
     align-items: center;
 }
-.cart-icon{
-    position: relative;
-    cursor: pointer;
-    margin-left: 15px;
-}
-.cart-icon img{
-    width: 30px;
-}
-.cart-count{
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    background-color: #d4af37;
-    color: black;
-    font-size: 12px;
-    padding: 3px 7px;
-    border-radius: 50%;
 
-}
 
 #section-one {
     position: relative;
@@ -352,6 +323,58 @@ select, button {
 .review-form button:hover {
     background-color: #0056b3;
 }
+
+#selller-add-furniture {
+    max-width: 500px;
+    margin: 100px auto 50px;
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+#selller-add-furniture h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #d4af37;
+}
+
+#add-furniture-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#add-furniture-form input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d4af37;
+    background: transparent;
+    color: #fff;
+    outline: none;
+}
+
+#add-furniture-form input::placeholder {
+    color: #d4af37;
+    opacity: 0.8;
+}
+
+#add-furniture-form button {
+    padding: 12px;
+    background-color: #d4af37;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#add-furniture-form button:hover {
+    background-color: #ffcc00;
+}
+
+
 
 
 
