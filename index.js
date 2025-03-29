@@ -293,3 +293,44 @@ function setupSellerForm() {
           });
     });
 }
+
+let allFurniture = [];
+
+function fetchFurniture() {
+    fetch("http://localhost:3000/furniture")
+        .then(res => res.json())
+        .then(data => {
+            allFurniture = data;
+            displayFurniture(allFurniture);
+        })
+        .catch(err => console.error("Fetch furniture error:", err));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#apply-filters").addEventListener("click", applyFilters);
+    document.querySelector("#clear-filters").addEventListener("click", clearFilters);
+});
+
+function applyFilters() {
+    const nameSearch = document.querySelector("#search-name").value.trim().toLowerCase();
+    const category = document.querySelector("#filter-category").value.toLowerCase();
+    const minPrice = parseFloat(document.querySelector("#min-price").value) || 0;
+    const maxPrice = parseFloat(document.querySelector("#max-price").value) || Infinity;
+
+    const filtered = allFurniture.filter(item => {
+        const matchesName = item.name.toLowerCase().includes(nameSearch);
+        const matchesCategory = category ? item.category === category : true;
+        const matchesPrice = item.price >= minPrice && item.price <= maxPrice;
+        return matchesName && matchesCategory && matchesPrice;
+    });
+
+    displayFurniture(filtered);
+}
+function clearFilters() {
+    document.querySelector("#search-name").value = "";
+    document.querySelector("#filter-category").value = "";
+    document.querySelector("#min-price").value = "";
+    document.querySelector("#max-price").value = "";
+    displayFurniture(allFurniture);
+}
+

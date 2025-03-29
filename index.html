@@ -33,13 +33,32 @@
         <div class="sec-one-content">
             <h1>Luxury & Comfort, Redefined</h1>
             <p>Discover exclusive, handcrafted furniture designed for elegance and comfort.</p>
-            <a href="#" class="btn">Shop Now</a>
+            <a href="#furniture-container" class="btn">Shop Now</a>
         </div>
     </section>
+
+    <!--filtering-->
+    <section id="filters">
+        <input type="text" id="search-name" placeholder="Search by name...">
+        <select id="filter-category">
+            <option value="">All Categories</option>
+            <option value="Sofa">Sofa</option>
+            <option value="Table">Table</option>
+            <option value="Chair">Chair</option>
+            <option value="Bed">Bed</option>
+        </select>
+        <input type="number" id="min-price" placeholder="Min Price">
+        <input type="number" id="max-price" placeholder="Max Price">
+        <button id="apply-filters">Apply Filters</button>
+    </section>
+
+    <button id="clear-filters">Clear Filters</button>
+
     
 
 <!--products za json zitadesplay hapa-->
 <section id="furniture-container"></section>
+
 
 
 <!--story ya kubuy na payments method -->
